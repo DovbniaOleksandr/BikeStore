@@ -1,0 +1,12 @@
+﻿@model IEnumerable<BikeCardViewModel>
+
+<body>
+<partial name="_Slider"/>
+<h3 class="m-1 text-center mb-2">Get your bike</h3>
+<div class="card-deck row">
+    @foreach (var product in Model)
+    {
+        <partial name="Card/BikeCard" for="@product"/>
+    }
+</div>
+</body>
