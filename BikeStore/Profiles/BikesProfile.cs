@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using BikeStore.Models;
+using BikeStore.Models.EfModels;
 using BikeStore.ViewModels;
 
 namespace BikeStore.Profiles
@@ -30,6 +31,7 @@ namespace BikeStore.Profiles
             CreateMap<UserIdentityModel, UserManageViewModel>()
                 .ForMember(dest => dest.Password, opt => opt.Ignore())
                 .ReverseMap();
+            CreateMap<Order, OrderViewModel>();
         }
     }
 }

@@ -14,6 +14,11 @@
 
             </p>
             <div class="text-center">
+                <form method="post" asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-id="@Model.ProductId">
+                    <button type="submit" class="btn btn-outline-primary m-1 btn-lg" style="width: auto">
+                        Add to card
+                    </button>
+                </form>
                 <a asp-controller="Home" asp-action="Index"
                    class="btn btn-outline-dark m-1" id="BikeCardBtn">See all</a>
                 @if (User.IsInRole("Admin"))

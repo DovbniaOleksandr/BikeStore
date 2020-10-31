@@ -18,7 +18,9 @@ namespace BikeStore
             : base(options)
         {
         }
-
+        public virtual DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
+        public virtual DbSet<OrderProduct> OrderProducts { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Brand> Brands { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Product> Products { get; set; }
@@ -134,7 +136,19 @@ namespace BikeStore
                     .HasMaxLength(5)
                     .IsUnicode(false);
             });
-
+            modelBuilder.Entity<Order>(order =>
+            {
+                order.HasOne(o => o.User)
+                    .WithMany(u => u.Orders)
+                    .HasForeignKey(o => o.UserId);
+            });
+            modelBuilder.Entity<OrderProduct>(orderProducts =>
+            {
+                orderProducts.HasOne(o => o.Order)
+                    .WithMany(o => o.Products)
+                    .HasForeignKey(or => or.OrderId);
+                orderProducts.HasKey(or => new {or.OrderId, or.ProductId});
+            });
         }
     }
 }

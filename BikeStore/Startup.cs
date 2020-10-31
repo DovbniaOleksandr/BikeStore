@@ -29,12 +29,15 @@ namespace BikeStore
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc()
+                .AddSessionStateTempDataProvider();
             services.AddDbContext<BikeStoresContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("BikeStoreConnection")));
             services.AddScoped<IProductsRepo, ProductsSqlRepo>();
             services.AddScoped<ICategoriesRepo, CategoriesSqlRepo>();
             services.AddScoped<IBrandsRepo, BrandsSqlRepo>();
+            services.AddScoped<IOrdersRepo, OrdersSqlRepo>();
+            services.AddScoped(ShoppingCart.GetCart);
             services.AddIdentity<UserIdentityModel, IdentityRole<int>>(options =>
                 {
                     options.Password.RequiredLength = 8;
@@ -50,6 +53,8 @@ namespace BikeStore
 
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
+            services.AddSession();
+            services.AddMemoryCache();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -64,6 +69,7 @@ namespace BikeStore
                 app.UseExceptionHandler("/Error");
             }
 
+            app.UseSession();
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseRouting();

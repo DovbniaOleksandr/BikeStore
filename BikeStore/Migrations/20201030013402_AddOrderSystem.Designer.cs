@@ -4,14 +4,16 @@ using BikeStore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BikeStore.Migrations
 {
     [DbContext(typeof(BikeStoresContext))]
-    partial class BikeStoresContextModelSnapshot : ModelSnapshot
+    [Migration("20201030013402_AddOrderSystem")]
+    partial class AddOrderSystem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -104,27 +106,6 @@ namespace BikeStore.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("OrderProducts");
-                });
-
-            modelBuilder.Entity("BikeStore.Models.EfModels.ShoppingCartItem", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ShoppingCartId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ShoppingCartItems");
                 });
 
             modelBuilder.Entity("BikeStore.Models.UserIdentityModel", b =>
@@ -448,13 +429,6 @@ namespace BikeStore.Migrations
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("BikeStore.Models.EfModels.ShoppingCartItem", b =>
-                {
-                    b.HasOne("BikeStore.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("BikeStore.Product", b =>

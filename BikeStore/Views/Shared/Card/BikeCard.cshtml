@@ -11,6 +11,11 @@
             </div>
             <p class="card-text">Good model from @Model.Brand in <a asp-controller="Bikes" asp-action="BikesByCategory" asp-route-category="@Model.Category">@Model.Category</a> category.</p>
             <div class="text-center">
+                <form method="post" asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-id="@Model.ProductId">
+                    <button type="submit" class="btn btn-outline-primary m-1 btn-lg" style="width: auto">
+                        Add to card
+                    </button>
+                </form>
                 <a asp-controller="Bikes" asp-action="Details" asp-route-id="@Model.ProductId"
                    class="btn btn-outline-primary m-1" id="BikeCardBtn">View</a>
                 @if (User.IsInRole("Admin"))
