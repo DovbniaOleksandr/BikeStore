@@ -62,6 +62,7 @@ namespace BikeStore.Models.Repos
         }
 
         public List<Order> GetOrdersList() => _context.Orders.Include(o => o.User).Include(o => o.Products)
+            .ThenInclude(p => p.Product)
             .ToList();
 
         public void DeleteOrder(int orderId)

@@ -19,8 +19,8 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1" style="font-size: 20px">
+                <div class="navbar-collapse collapse">
+                    <ul class="navbar-nav flex-grow-1 mr-auto" style="font-size: 20px">
                         <li class="nav-item">
                             <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
@@ -50,33 +50,38 @@
                             </li>
                         }
                     </ul>
+                    <ul class="navbar-nav" style="font-size: 20px">
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            @await Component.InvokeAsync("ShoppingCartSummary")
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-user"></i> Profile
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="ManageProfile">Manage</a>
+                                    <div class="dropdown-divider"></div>
+                                    <form method="post" asp-controller="Account" asp-action="LogOut">
+                                        <button type="submit" style="width: auto"
+                                                class="dropdown-item">
+                                            Logout @User.Identity.Name
+                                        </button>
+                                    </form>
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="LogIn">LogIn</a>
+                            </li>
+                        }
+                    </ul>
                 </div>
-                <ul class="navbar-nav ml-auto" style="font-size: 20px">
-                    @if (SignInManager.IsSignedIn(User))
-                    {
-                        @await Component.InvokeAsync("ShoppingCartSummary")
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="ManageProfile">Profile</a>
-                        </li>
-                        <li class="nav-item">
-                            <form method="post" asp-controller="Account" asp-action="LogOut">
-                                <button type="submit" style="font-size: 20px; width: auto"
-                                        class="nav-link btn">
-                                    Logout @User.Identity.Name
-                                </button>
-                            </form>
-                        </li>
-                    }
-                    else
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="LogIn">LogIn</a>
-                        </li>
-                    }
-                </ul>
             </div>
         </nav>
     </header>
@@ -86,11 +91,12 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - BikeStore - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+<footer class="border-top footer text-muted">
+    <div class="container">
+        &copy; 2020 - BikeStore - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </div>
+</footer>
+    <script src="https://kit.fontawesome.com/3c9e998a8c.js" crossorigin="anonymous"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery-validate/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>

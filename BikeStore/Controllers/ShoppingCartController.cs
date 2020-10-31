@@ -38,7 +38,7 @@ namespace BikeStore.Controllers
         [Authorize]
         public IActionResult AddToShoppingCart(int id)
         {
-            var selectedProduct = _productsRepo.GetProducts().FirstOrDefault(p => p.ProductId == id);
+            var selectedProduct = _productsRepo.GetProductById(id);
             if (selectedProduct != null)
             {
                 _shoppingCart.AddToCart(selectedProduct, 1);
@@ -49,7 +49,7 @@ namespace BikeStore.Controllers
         [Authorize]
         public IActionResult RemoveFromShoppingCart(int id)
         {
-            var selectedProduct = _productsRepo.GetProducts().FirstOrDefault(p => p.ProductId == id);
+            var selectedProduct = _productsRepo.GetProductById(id);
             if (selectedProduct != null)
             {
                 _shoppingCart.RemoveFromCart(selectedProduct);

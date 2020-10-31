@@ -1,4 +1,5 @@
-﻿@model IEnumerable<OrderViewModel>
+﻿@using System.Diagnostics.Eventing.Reader
+@model IEnumerable<OrderViewModel>
 
 <h1>All Orders</h1>
 
@@ -33,7 +34,11 @@
                         @Html.DisplayFor(modelItem => item.UserId)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Products.Count)
+                        @{ var list = new SelectList(item.Products.Select(i => new {i.Product.ProductName}), "ProductName", "ProductName");}
+                        <select class="custom-select mr-sm-2"
+                                asp-items="list">
+                            <option value="" disabled selected>Click to see products</option>
+                        </select>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.CreatedAt)
