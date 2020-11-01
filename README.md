@@ -3,5 +3,4 @@ This is my first asp.net core mvc project.
 In this project i worked with Entity Framework Core, ASP .NET Core, MsSQL, NLog, AutoMapper,Microsoft Identity,
 Razor Pages.
 Implement concepts like: MVC, Patterns(Repository, Strategy), Dependency Injection.
-If you want to download this project don't forget to create database.
 
