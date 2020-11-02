@@ -35,7 +35,7 @@ namespace BikeStore.Models.Repos
 
         public Product GetProductById(int id)
         {
-            var product = _context.Products.AsNoTracking().Include(p => p.Category).Include(p => p.Brand)
+            var product = _context.Products.Include(p => p.Category).Include(p => p.Brand)
                 .FirstOrDefault(p => p.ProductId == id);
             if(product == null)
                 throw new ArgumentException("Product with given id doesn't exist");
@@ -46,10 +46,11 @@ namespace BikeStore.Models.Repos
         {
             if (searchString == null)
             {
-                var products = _context.Products.ToList();
+                var products = _context.Products.Include(p => p.Category).Include(p => p.Brand).ToList();
                 return products;
             }
-            var searchedProducts = _context.Products.Where(b => b.ProductName.Contains(searchString));
+            var searchedProducts = _context.Products.Include(p => p.Category).Include(p => p.Brand).
+                Where(b => b.ProductName.Contains(searchString));
             return searchedProducts;
         }
 
