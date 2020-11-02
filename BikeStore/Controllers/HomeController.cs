@@ -21,11 +21,27 @@ namespace BikeStore.Controllers
         }
         [Route("")]
         [Route("Home/Index")]
-        public IActionResult Index()
+        public IActionResult Index(IndexModel indexModel)
         {
-            var bikes = _repo.GetProducts();
-            var bikesCard = bikes.Select(b => _mapper.Map<BikeCardViewModel>(b));
-            return View(bikesCard);
+            if (indexModel.SearchingString == null)
+            {
+                var bikes = _repo.GetProducts();
+                var bikesCard = bikes.Select(b => _mapper.Map<BikeCardViewModel>(b));
+                var model = new IndexModel()
+                {
+                    SearchingString = indexModel.SearchingString,
+                    bikesList = bikesCard
+                };
+                return View(model);
+            }
+
+            var searchBikes = _repo.GetProducts(indexModel.SearchingString);
+            var searchModel = new IndexModel()
+            {
+                SearchingString = indexModel.SearchingString,
+                bikesList = searchBikes.Select(b => _mapper.Map<BikeCardViewModel>(b))
+        };
+            return View(searchModel);
         }
     }
 }

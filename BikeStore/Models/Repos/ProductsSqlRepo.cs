@@ -42,9 +42,18 @@ namespace BikeStore.Models.Repos
             return product;
         }
 
-        public IEnumerable<Product> GetProducts() => _context.Products.Include(p => p.Category).Include(p => p.Brand).ToList();
+        public IEnumerable<Product> GetProducts(string searchString = null)
+        {
+            if (searchString == null)
+            {
+                var products = _context.Products.ToList();
+                return products;
+            }
+            var searchedProducts = _context.Products.Where(b => b.ProductName.Contains(searchString));
+            return searchedProducts;
+        }
 
-        public IEnumerable<Product> GetProducts(string category)
+        public IEnumerable<Product> GetProductsByCategory(string category)
         {
             if (_context.Categories.FirstOrDefault(c => c.CategoryName == category) == null)
                 throw new ArgumentException("Invalid Category");
