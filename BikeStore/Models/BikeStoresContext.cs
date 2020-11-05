@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BikeStore.Models;
 using BikeStore.Models.EfModels;
 using Microsoft.AspNetCore.Identity;
@@ -148,6 +149,249 @@ namespace BikeStore
                     .WithMany(o => o.Products)
                     .HasForeignKey(or => or.OrderId);
                 orderProducts.HasKey(or => new {or.OrderId, or.ProductId});
+            });
+        }
+    }
+    public static class ModelBuilderExtensions
+    {
+        public static void Seed(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<UserIdentityModel>().HasData(new UserIdentityModel()
+            {
+                Id = 1,
+                AccessFailedCount = 0,
+                ConcurrencyStamp = "32671cd8-02a4-49b3-82e3-be501d168110",
+                UserName = "MainAdmin",
+                NormalizedUserName = "MAINADMIN",
+                Email = "sashadovbnya1@gmail.com",
+                NormalizedEmail = "SASHADOVBNYA1@GMAIL.COM",
+                EmailConfirmed = false,
+                PasswordHash = "AQAAAAEAACcQAAAAEBfyKoJR1GxMLjXdw4FRFst3p2LsTV4/yDrd2da1pT9TACYtxf4grHw7WiCxtj73IQ==",
+                SecurityStamp = "AFVCDJLQE5YOFQOZJRK43RC6UYPIVIJD",
+                PhoneNumber = "0967583885",
+                LockoutEnabled = true
+            });
+            modelBuilder.Entity<IdentityRole<int>>().HasData(new List<IdentityRole<int>>()
+            {
+                new IdentityRole<int>()
+                {
+                    Id = 1,
+                    Name = "Admin",
+                    NormalizedName = "ADMIN",
+                    ConcurrencyStamp = "14e03940-8669-42fd-9992-bb93c7abee5e"
+                },
+                new IdentityRole<int>()
+                {
+                    Id = 2,
+                    Name = "Customer",
+                    NormalizedName = "CUSTOMER",
+                    ConcurrencyStamp = "4d871a42-9903-48c3-a902-8fc95c8bf67a"
+                }
+            });
+            modelBuilder.Entity<IdentityUserRole<int>>().HasData(new IdentityUserRole<int>()
+            {
+                UserId = 1,
+                RoleId = 1
+            });
+            modelBuilder.Entity<Brand>().HasData(new List<Brand>()
+            {
+                new Brand()
+                {
+                    BrandId = 1,
+                    BrandName = "Electra"
+                },
+                new Brand()
+                {
+                    BrandId = 2,
+                    BrandName = "Haro"
+                },
+                new Brand()
+                {
+                    BrandId = 3,
+                    BrandName = "Heller"
+                },
+                new Brand()
+                {
+                    BrandId = 4,
+                    BrandName = "Pure Cycles"
+                },
+                new Brand()
+                {
+                    BrandId = 5,
+                    BrandName = "Ritchey"
+                },
+                new Brand()
+                {
+                    BrandId = 6,
+                    BrandName = "Strider"
+                },
+                new Brand()
+                {
+                    BrandId = 7,
+                    BrandName = "Sun Bicycles"
+                },
+                new Brand()
+                {
+                    BrandId = 8,
+                    BrandName = "Surly"
+                },
+                new Brand()
+                {
+                    BrandId = 9,
+                    BrandName = "Trek"
+                }
+            });
+            modelBuilder.Entity<Category>().HasData(new List<Category>()
+            {
+                new Category()
+                {
+                    CategoryId = 1,
+                    CategoryName = "Children Bicycles"
+                },
+                new Category()
+                {
+                    CategoryId = 2,
+                    CategoryName = "Comfort Bicycles"
+                },
+                new Category()
+                {
+                    CategoryId = 3,
+                    CategoryName = "Cruisers Bicycles"
+                },
+                new Category()
+                {
+                    CategoryId = 4,
+                    CategoryName = "Cyclocross Bicycles"
+                },
+                new Category()
+                {
+                    CategoryId = 5,
+                    CategoryName = "Electric Bikes"
+                },
+                new Category()
+                {
+                    CategoryId = 6,
+                    CategoryName = "Mountain Bikes"
+                },
+                new Category()
+                {
+                    CategoryId = 7,
+                    CategoryName = "Road Bikes"
+                }
+            });
+            modelBuilder.Entity<Product>().HasData(new List<Product>()
+            {
+                new Product()
+                {
+                    BrandId = 5,
+                    CategoryId = 6,
+                    ListPrice = 749.99M,
+                    ModelYear = 2019,
+                    ProductId = 2,
+                    ProductName = "Ritchey Timberwolf Frameset",
+                    ProductPhoto = "~/img/bike3.jpg"
+                },
+                new Product()
+                {
+                    BrandId = 4,
+                    CategoryId = 6,
+                    ListPrice = 300.99M,
+                    ModelYear = 2019,
+                    ProductId = 3,
+                    ProductName = "Surly Wednesday Frameset",
+                    ProductPhoto = "~/img/bike2.jpg"
+                },
+                new Product()
+                {
+                    BrandId = 9,
+                    CategoryId = 3,
+                    ListPrice = 500.99M,
+                    ModelYear = 2019,
+                    ProductId = 4,
+                    ProductName = "Trek Fuel EX 8 29",
+                    ProductPhoto = "~/img/bike1.jpg"
+                },
+                new Product()
+                {
+                    BrandId = 3,
+                    CategoryId = 4,
+                    ListPrice = 700.99M,
+                    ModelYear = 2019,
+                    ProductId = 5,
+                    ProductName = "Heller Shagamaw Frame",
+                    ProductPhoto = "~/img/bike5.jpg"
+                },
+                new Product()
+                {
+                    BrandId = 9,
+                    CategoryId = 4,
+                    ListPrice = 450.99M,
+                    ModelYear = 2019,
+                    ProductId = 6,
+                    ProductName = "Trek Slash 8 27.5",
+                    ProductPhoto = "~/img/bike4.jpg"
+                },
+                new Product()
+                {
+                    BrandId = 4,
+                    CategoryId = 3,
+                    ListPrice = 320.99M,
+                    ModelYear = 2019,
+                    ProductId = 7,
+                    ProductName = "Trek Remedy 29 Carbon Frameset",
+                    ProductPhoto = "~/img/bike1.jpg"
+                },
+                new Product()
+                {
+                    BrandId = 9,
+                    CategoryId = 5,
+                    ListPrice = 200.99M,
+                    ModelYear = 2019,
+                    ProductId = 8,
+                    ProductName = "Trek Conduit+",
+                    ProductPhoto = "~/img/bike2.jpg"
+                },
+                new Product()
+                {
+                    BrandId = 8,
+                    CategoryId = 4,
+                    ListPrice = 400M,
+                    ModelYear = 2019,
+                    ProductId = 9,
+                    ProductName = "Surly Straggler",
+                    ProductPhoto = "~/img/bike5.jpg"
+                },
+                new Product()
+                {
+                    BrandId = 8,
+                    CategoryId = 3,
+                    ListPrice = 749.99M,
+                    ModelYear = 2019,
+                    ProductId = 10,
+                    ProductName = "Surly Straggler 650b",
+                    ProductPhoto = "~/img/bike3.jpg"
+                },
+                new Product()
+                {
+                    BrandId = 5,
+                    CategoryId = 4,
+                    ListPrice = 350.99M,
+                    ModelYear = 2019,
+                    ProductId = 11,
+                    ProductName = "Pure Cycles Western 3-Speed - Women's",
+                    ProductPhoto = "~/img/bike1.jpg"
+                },
+                new Product()
+                {
+                    BrandId = 1,
+                    CategoryId = 3,
+                    ListPrice = 590.99M,
+                    ModelYear = 2019,
+                    ProductId = 12,
+                    ProductName = "Pure Cycles Vine 8-Speed",
+                    ProductPhoto = "~/img/bike5.jpg"
+
+                }
             });
         }
     }
