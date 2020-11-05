@@ -11,13 +11,10 @@ namespace BikeStore
 {
     public partial class BikeStoresContext : IdentityDbContext<UserIdentityModel, IdentityRole<int>,int>
     {
-        public BikeStoresContext()
-        {
-        }
-
         public BikeStoresContext(DbContextOptions<BikeStoresContext> options)
             : base(options)
         {
+            Database.EnsureCreated();
         }
         public virtual DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
         public virtual DbSet<OrderProduct> OrderProducts { get; set; }
@@ -150,6 +147,7 @@ namespace BikeStore
                     .HasForeignKey(or => or.OrderId);
                 orderProducts.HasKey(or => new {or.OrderId, or.ProductId});
             });
+            modelBuilder.Seed();
         }
     }
     public static class ModelBuilderExtensions
