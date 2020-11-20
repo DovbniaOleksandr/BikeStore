@@ -92,7 +92,7 @@ namespace BikeStore.Models
             return items;
         }
 
-        public void ClearCart()
+        public void ClearCart() 
         {
             var cartItems = _context
                 .ShoppingCartItems

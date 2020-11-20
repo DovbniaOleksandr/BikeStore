@@ -46,6 +46,7 @@ namespace BikeStore
                     options.Password.RequireNonAlphanumeric = false;
                     options.User.RequireUniqueEmail = true;
                 }).AddEntityFrameworkStores<BikeStoresContext>();
+            services.ConfigureApplicationCookie(options => { options.ExpireTimeSpan = TimeSpan.FromHours(1); });
             var mapperConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new BikesProfile());
@@ -69,11 +70,11 @@ namespace BikeStore
                 app.UseExceptionHandler("/Error");
             }
 
-            app.UseSession();
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseRouting();
             app.UseAuthorization();
+            app.UseSession();
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }

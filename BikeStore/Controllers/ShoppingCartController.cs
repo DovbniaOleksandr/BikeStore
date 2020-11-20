@@ -60,5 +60,10 @@ namespace BikeStore.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        public static void ClearCart()
+        {
+            
+        }
     }
 }
